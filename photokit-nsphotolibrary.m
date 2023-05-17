@@ -137,10 +137,10 @@ int emacs_module_init(struct emacs_runtime *runtime) EMACS_NOEXCEPT {
   if (runtime->size < sizeof(*runtime))
     return 1;
   emacs_env *env = runtime->get_environment(runtime);
-  DEFUN("photokit-cloud-id-to-local-id", cloudIdentifierToLocalIdentifer, 1, 1,
-        "localIdentifierMappingsForCloudIdentifiers of sharedPhotoLibrary");
-  DEFUN("photokit-local-id-to-cloud-id", localIdentiferToCloudIdentifier, 1, 1,
-        "cloudIdentifierMappingsForLocalIdentifiers of sharedPhotoLibrary");
+  DEFUN("photokit--ns-cloud-id-to-local-id", cloudIdentifierToLocalIdentifer, 1,
+        1, "localIdentifierMappingsForCloudIdentifiers of sharedPhotoLibrary");
+  DEFUN("photokit--ns-local-id-to-cloud-id", localIdentiferToCloudIdentifier, 1,
+        1, "cloudIdentifierMappingsForLocalIdentifiers of sharedPhotoLibrary");
   PROVIDE("photokit-nsphotolibrary");
   return 0;
 }
