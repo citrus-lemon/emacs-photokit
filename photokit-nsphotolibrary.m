@@ -27,6 +27,9 @@ static emacs_value cloudIdentifierToLocalIdentifer(emacs_env *env,
                                                    void *data) EMACS_NOEXCEPT {
   emacs_value str = args[0];
   emacs_value result = Qnil;
+  if (!env->is_not_nil(env,
+                       env->funcall(env, env->intern(env, "stringp"), 1, &str)))
+    return result;
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   NSString *value;
   {
@@ -80,6 +83,9 @@ static emacs_value localIdentiferToCloudIdentifier(emacs_env *env,
                                                    void *data) EMACS_NOEXCEPT {
   emacs_value str = args[0];
   emacs_value result = Qnil;
+  if (!env->is_not_nil(env,
+                       env->funcall(env, env->intern(env, "stringp"), 1, &str)))
+    return result;
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
   NSString *value;
   {
