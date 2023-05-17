@@ -55,6 +55,14 @@ static emacs_value cloudIdentifierToLocalIdentifer(emacs_env *env,
   if (!local_id_map)
     goto end;
 
+  if ([local_id_map error]) {
+    NSString *error = [[local_id_map error] localizedDescription];
+    emacs_value Serr =
+        env->make_string(env, [error UTF8String], strlen([error UTF8String]));
+    env->funcall(env, env->intern(env, "error"), 1, &Serr);
+    goto end;
+  }
+
   {
     NSString *local_id_str = [local_id_map localIdentifier];
     result = env->make_string(env, [local_id_str UTF8String],
@@ -97,6 +105,14 @@ static emacs_value localIdentiferToCloudIdentifier(emacs_env *env,
 
   if (!cloud_id_map)
     goto end;
+
+  if ([cloud_id_map error]) {
+    NSString *error = [[cloud_id_map error] localizedDescription];
+    emacs_value Serr =
+        env->make_string(env, [error UTF8String], strlen([error UTF8String]));
+    env->funcall(env, env->intern(env, "error"), 1, &Serr);
+    goto end;
+  }
 
   {
     NSString *cloud_id_str = [[cloud_id_map cloudIdentifier] stringValue];
