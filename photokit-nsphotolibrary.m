@@ -39,6 +39,7 @@ static emacs_value cloudIdentifierToLocalIdentifer(emacs_env *env,
     buffer = (char *)malloc(buffer_size);
     env->copy_string_contents(env, str, buffer, &buffer_size);
     value = [NSString stringWithUTF8String:buffer];
+    free(buffer);
   }
   PHCloudIdentifier *cloud_identifier =
       [[PHCloudIdentifier alloc] initWithStringValue:value];
@@ -95,6 +96,7 @@ static emacs_value localIdentiferToCloudIdentifier(emacs_env *env,
     buffer = (char *)malloc(buffer_size);
     env->copy_string_contents(env, str, buffer, &buffer_size);
     value = [NSString stringWithUTF8String:buffer];
+    free(buffer);
   }
   NSArray<NSString *> *identifiers = @[ value ];
 
